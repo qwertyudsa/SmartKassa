@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_add_supplier"
+        android:icon="@drawable/ic_supplier"
+        android:title="Добавить поставщика"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_clear_income"
+        android:icon="@drawable/ic_clear"
+        android:title="Очистить поставку"
+        app:showAsAction="never" />
+
+</menu>
