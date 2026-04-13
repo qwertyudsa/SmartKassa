@@ -64,9 +64,9 @@ jobs:
   # НОВАЯ ЗАДАЧА 3: UI-тесты (на эмуляторе)
   ui-test:
     name: UI-тесты
-    runs-on: macos-latest  # Эмуляторы быстрее на macOS
+    runs-on: macos-latest
     needs: unit-test
-    
+
     steps:
       - name: Загрузка кода
         uses: actions/checkout@v4
@@ -84,14 +84,27 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew connectedDebugAndroidTest
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -no-audio -no-boot-anim
+          script: |
+            # Ждём полной загрузки эмулятора
+            adb wait-for-device
+            adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 5; done;'
+            sleep 30
+            # Запускаем тесты
+            ./gradlew connectedDebugAndroidTest
+          disable-animations: true
+          force-avd-creation: false
+          emulator-build: 30.0.3
 
       - name: Сохранение отчёта UI-тестов
+        if: always()  # Сохраняем отчёт даже если тесты упали
         uses: actions/upload-artifact@v4
         with:
           name: ui-test-report
           path: app/build/reports/androidTests/connected/
-
   # ЗАДАЧА 4: Сборка APK
   build:
     name: Сборка APK
