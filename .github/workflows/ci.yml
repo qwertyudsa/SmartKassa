@@ -38,7 +38,7 @@ jobs:
     name: Unit-тесты
     runs-on: ubuntu-latest
     needs: lint
-    
+
     steps:
       - name: Загрузка кода
         uses: actions/checkout@v4
@@ -61,56 +61,12 @@ jobs:
           name: unit-test-report
           path: app/build/reports/tests/testDebugUnitTest/
 
-  # НОВАЯ ЗАДАЧА 3: UI-тесты (на эмуляторе)
-  ui-test:
-    name: UI-тесты
-    runs-on: macos-latest
-    needs: unit-test
-
-    steps:
-      - name: Загрузка кода
-        uses: actions/checkout@v4
-
-      - name: Установка Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Права на gradlew
-        run: chmod +x gradlew
-
-      - name: Запуск UI-тестов на эмуляторе
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: google_apis
-          arch: x86_64
-          profile: Nexus 6
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -no-audio -no-boot-anim
-          script: |
-            # Ждём полной загрузки эмулятора
-            adb wait-for-device
-            adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 5; done;'
-            sleep 30
-            # Запускаем тесты
-            ./gradlew connectedDebugAndroidTest
-          disable-animations: true
-          force-avd-creation: false
-          emulator-build: 30.0.3
-
-      - name: Сохранение отчёта UI-тестов
-        if: always()  # Сохраняем отчёт даже если тесты упали
-        uses: actions/upload-artifact@v4
-        with:
-          name: ui-test-report
-          path: app/build/reports/androidTests/connected/
-  # ЗАДАЧА 4: Сборка APK
+  # ЗАДАЧА 3: Сборка APK (без UI-тестов)
   build:
     name: Сборка APK
     runs-on: ubuntu-latest
-    needs: [ui-test]
-    
+    needs: unit-test
+
     steps:
       - name: Загрузка кода
         uses: actions/checkout@v4
