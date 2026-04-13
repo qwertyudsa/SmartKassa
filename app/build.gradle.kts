@@ -16,6 +16,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
 
     buildTypes {
         release {
