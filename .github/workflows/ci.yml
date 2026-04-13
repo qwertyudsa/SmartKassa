@@ -1,46 +1,121 @@
-# Имя нашего CI/CD процесса
 name: SmartKassa CI/CD
 
-# Когда запускать процесс
 on:
   push:
-    branches: [ main, develop ]  # При пуше в эти ветки
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]            # При создании Pull Request
+    branches: [ main ]
 
-# Все задачи (jobs) будут выполняться последовательно
 jobs:
   # ЗАДАЧА 1: Проверка стиля кода (Lint)
   lint:
-    # Название задачи
     name: Проверка стиля кода
-    # Операционная система для запуска
     runs-on: ubuntu-latest
-
-    # Шаги внутри задачи
     steps:
-      # Шаг 1: Загружаем код из репозитория
       - name: Загрузка кода
         uses: actions/checkout@v4
 
-      # Шаг 2: Устанавливаем Java 17 (нужна для Android)
       - name: Установка Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # Шаг 3: Даём права на выполнение gradlew (нужно для Mac/Linux)
       - name: Права на gradlew
         run: chmod +x gradlew
 
-      # Шаг 4: Запускаем Lint проверку
       - name: Запуск Lint
         run: ./gradlew lintDebug
 
-      # Шаг 5: Сохраняем отчёт Lint как артефакт (можно скачать)
       - name: Сохранение отчёта Lint
         uses: actions/upload-artifact@v4
         with:
           name: lint-report
           path: app/build/reports/lint-results-debug.html
+
+  # ЗАДАЧА 2: Unit-тесты
+  unit-test:
+    name: Unit-тесты
+    runs-on: ubuntu-latest
+    needs: lint
+    
+    steps:
+      - name: Загрузка кода
+        uses: actions/checkout@v4
+
+      - name: Установка Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Права на gradlew
+        run: chmod +x gradlew
+
+      - name: Запуск Unit-тестов
+        run: ./gradlew testDebugUnitTest
+
+      - name: Сохранение отчёта тестов
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: app/build/reports/tests/testDebugUnitTest/
+
+  # НОВАЯ ЗАДАЧА 3: UI-тесты (на эмуляторе)
+  ui-test:
+    name: UI-тесты
+    runs-on: macos-latest  # Эмуляторы быстрее на macOS
+    needs: unit-test
+    
+    steps:
+      - name: Загрузка кода
+        uses: actions/checkout@v4
+
+      - name: Установка Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Права на gradlew
+        run: chmod +x gradlew
+
+      - name: Запуск UI-тестов на эмуляторе
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedDebugAndroidTest
+
+      - name: Сохранение отчёта UI-тестов
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-test-report
+          path: app/build/reports/androidTests/connected/
+
+  # ЗАДАЧА 4: Сборка APK
+  build:
+    name: Сборка APK
+    runs-on: ubuntu-latest
+    needs: [ui-test]
+    
+    steps:
+      - name: Загрузка кода
+        uses: actions/checkout@v4
+
+      - name: Установка Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Права на gradlew
+        run: chmod +x gradlew
+
+      - name: Сборка APK
+        run: ./gradlew assembleDebug
+
+      - name: Сохранение APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: smartkassa-debug-apk
+          path: app/build/outputs/apk/debug/*.apk
