@@ -1,0 +1,46 @@
+# Имя нашего CI/CD процесса
+name: SmartKassa CI/CD
+
+# Когда запускать процесс
+on:
+  push:
+    branches: [ main, develop ]  # При пуше в эти ветки
+  pull_request:
+    branches: [ main ]            # При создании Pull Request
+
+# Все задачи (jobs) будут выполняться последовательно
+jobs:
+  # ЗАДАЧА 1: Проверка стиля кода (Lint)
+  lint:
+    # Название задачи
+    name: Проверка стиля кода
+    # Операционная система для запуска
+    runs-on: ubuntu-latest
+
+    # Шаги внутри задачи
+    steps:
+      # Шаг 1: Загружаем код из репозитория
+      - name: Загрузка кода
+        uses: actions/checkout@v4
+
+      # Шаг 2: Устанавливаем Java 17 (нужна для Android)
+      - name: Установка Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Шаг 3: Даём права на выполнение gradlew (нужно для Mac/Linux)
+      - name: Права на gradlew
+        run: chmod +x gradlew
+
+      # Шаг 4: Запускаем Lint проверку
+      - name: Запуск Lint
+        run: ./gradlew lintDebug
+
+      # Шаг 5: Сохраняем отчёт Lint как артефакт (можно скачать)
+      - name: Сохранение отчёта Lint
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results-debug.html
