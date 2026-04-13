@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Стиль для MaterialButton -->
+    <style name="Widget.SmartKassa.Button" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="backgroundTint">@color/surface</item>
+    </style>
+
+    <!-- Стиль для заполненной кнопки -->
+    <style name="Widget.SmartKassa.Button.Filled" parent="Widget.Material3.Button">
+        <item name="android:minHeight">56dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="elevation">2dp</item>
+    </style>
+
+    <!-- Стиль для TextInputLayout -->
+    <style name="Widget.SmartKassa.TextInputLayout.OutlinedBox" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="boxBackgroundColor">@color/surface</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
+
+    <!-- Стиль для MaterialCardView -->
+    <style name="Widget.SmartKassa.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="strokeColor">@color/border</item>
+        <item name="strokeWidth">0.5dp</item>
+    </style>
+
+    <!-- Стиль для MaterialToolbar -->
+    <style name="Widget.SmartKassa.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="titleTextColor">@color/on_primary</item>
+        <item name="subtitleTextColor">@color/on_primary</item>
+        <item name="navigationIconTint">@color/on_primary</item>
+    </style>
+
+    <!-- Стиль для CheckBox -->
+    <style name="Widget.SmartKassa.CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+</resources>

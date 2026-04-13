@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Внешние файлы -->
+    <external-path
+        name="external_files"
+        path="." />
+
+    <!-- Внешние файлы приложения -->
+    <external-files-path
+        name="external_app_files"
+        path="." />
+
+    <!-- Внешние кэш-файлы -->
+    <external-cache-path
+        name="external_cache"
+        path="." />
+
+    <!-- Внутренние файлы -->
+    <files-path
+        name="internal_files"
+        path="." />
+
+    <!-- Внутренние кэш-файлы -->
+    <cache-path
+        name="internal_cache"
+        path="." />
+
+    <!-- Специфично для резервных копий -->
+    <external-files-path
+        name="backups"
+        path="Documents/SmartKassaBackups/" />
+
+    <files-path
+        name="backups_internal"
+        path="." />
+</paths>

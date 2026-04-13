@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <!-- Custom Colors -->
+    <color name="primary_color">#FF6C63FF</color>
+    <color name="accent_color">#FFFF6584</color>
+    <color name="transparent_white">#22FFFFFF</color>
+    <color name="gray_light">#FFE0E0E0</color>
+    <color name="gray_dark">#FF757575</color>
+    <color name="success_green">#FF4CAF50</color>
+    <color name="warning_orange">#FF9800</color>
+    <color name="info_blue">#2196F3</color>
+
+
+
+
+    <!-- Дополнительные (для совместимости) -->
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="transparent_primary">#1A5C6BC0</color>
+    <color name="primary">#5C6BC0</color>
+    <color name="primary_light">#8E99F3</color>
+    <color name="primary_dark">#26418F</color>
+
+    <color name="secondary">#78909C</color>
+    <color name="secondary_light">#A7C0CD</color>
+    <color name="secondary_dark">#4B636E</color>
+
+    <color name="success">#66BB6A</color>
+    <color name="success_light">#98EE99</color>
+    <color name="success_dark">#338A3E</color>
+
+    <color name="error">#EF5350</color>
+    <color name="error_light">#FF867C</color>
+    <color name="error_dark">#B61827</color>
+
+    <color name="info">#42A5F5</color>
+    <color name="info_light">#80D6FF</color>
+    <color name="info_dark">#0077C2</color>
+
+    <color name="background">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+
+    <color name="text_primary">#37474F</color>
+    <color name="text_secondary">#78909C</color>
+    <color name="text_disabled">#B0BEC5</color>
+
+    <color name="border">#CFD8DC</color>
+
+    <!-- Вспомогательные цвета -->
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_surface">#37474F</color>
+    <color name="on_background">#37474F</color>
+
+    <!-- Тени -->
+    <color name="shadow">#1A000000</color>
+
+    <color name="loss_red_light">#FFF5F5</color>
+    <color name="warning_orange_light">#FFF3E0</color>
+
+
+
+
+</resources>
